@@ -1,0 +1,4 @@
+﻿  Pirmos Pratybos.cpp
+C:\Users\aurim\source\repos\Pirmos Pratybos\Pirmos Pratybos\Pirmos Pratybos.cpp(36,42): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\aurim\source\repos\Pirmos Pratybos\Pirmos Pratybos\Pirmos Pratybos.cpp(37,41): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Pirmos Pratybos.vcxproj -> C:\Users\aurim\source\repos\Pirmos Pratybos\Debug\Pirmos Pratybos.exe
