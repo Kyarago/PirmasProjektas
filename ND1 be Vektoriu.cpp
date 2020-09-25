@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+#include <functional>
+
 using std::string;
 using std::cout;
 using std::cin;
@@ -53,12 +55,23 @@ struct duomenys {
         << "Galutinis\n";
         cout << "-------------------------------------------------\n";
         for (int i = 0; i < n; i++) {
-            grupe[i].Galutinis = (float)grupe[i].Galutinis / 3.0;
+            grupe[i].Galutinis = (float)grupe[i].Galutinis / m;
             grupe[i].Galutinis = grupe[i].Galutinis * 0.4 + 0.6 * grupe[i].Egzaminas;
             cout << std::setw(20) << grupe[i].Vardas 
                 << std::setw(20) << grupe[i].Pavarde 
                 << std::setw(20) << std::setprecision(2) << std::fixed << grupe[i].Galutinis << endl;
         }
+
+        int arr[] = { 1, 5, 8, 9, 6, 7, 3, 4, 2, 0 };
+        int c = sizeof(arr) / sizeof(arr[0]);
+
+        std::list::sort(arr, arr + c);
+
+        cout << "Array after sorting : \n";
+        for (int i = 0; i < c; ++i)
+            cout << arr[i] << " ";
+
+        return 0;
         delete[] grupe;
     }
         // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
