@@ -1,17 +1,18 @@
-// ND1 be Vektoriu.cpp : This file contains the 'main' function. Program execution begins and ends there.
+﻿// ND1 be Vektoriu.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
 #include <vector>
 #include <string>
 #include <iomanip>
-#include <functional>
+#include <algorithm>
 
 using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::sort;
 
 struct duomenys {
     string Vardas;
@@ -23,6 +24,7 @@ struct duomenys {
 
     int main()
     {
+        float mediana;
         int n = 0;
         cout << "Iveskite studentu skaiciu: ";
         cin >> n;
@@ -46,9 +48,23 @@ struct duomenys {
             cout << "Iveskite " << i + 1 << "-ojo studento nd pazymius: ";
             for (int k = 0; k < m; k++) {
                 cin >> grupe[i].Namu[k];
+                int d = grupe[i].Namu[k];
+                int a[] = { d };
+                size_t size = sizeof(a) / sizeof(a[0]); //įvestų elementų skaičius
+                std::sort(a, a + size);
+                for (size_t o = 0; o < size; o++) {
+                    cout << a[o] << ' ';
+                }
                 grupe[i].Galutinis = grupe[i].Galutinis + grupe[i].Namu[k];
             }
         }
+        int a[] = { 1,5,4,2,3,6,7,8,2 };
+        size_t size = sizeof(a) / sizeof(a[0]); //įvestų elementų skaičius
+        std::sort(a, a + size); // surūšiuoti masyvą a nuo nulinio elemento iki n
+        for (size_t i = 0; i < size; i++) {
+            cout << a[i] << ' ';
+        }
+
         cout << std::left
         << std::setw(20) << "Vardas "
         << std::setw(20) << "Pavarde"
@@ -61,17 +77,6 @@ struct duomenys {
                 << std::setw(20) << grupe[i].Pavarde 
                 << std::setw(20) << std::setprecision(2) << std::fixed << grupe[i].Galutinis << endl;
         }
-
-        int arr[] = { 1, 5, 8, 9, 6, 7, 3, 4, 2, 0 };
-        int c = sizeof(arr) / sizeof(arr[0]);
-
-        std::list::sort(arr, arr + c);
-
-        cout << "Array after sorting : \n";
-        for (int i = 0; i < c; ++i)
-            cout << arr[i] << " ";
-
-        return 0;
         delete[] grupe;
     }
         // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
