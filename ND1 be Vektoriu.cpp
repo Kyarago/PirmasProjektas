@@ -17,7 +17,7 @@ using std::sort;
 struct duomenys {
     string Vardas;
     string Pavarde;
-    int Namu[10];
+    int Namu;
     int Egzaminas;
     float Galutinis = 0;
 };
@@ -48,22 +48,23 @@ struct duomenys {
             cout << "Iveskite " << i + 1 << "-ojo studento nd pazymius: ";
             for (int k = 0; k < m; k++) {
                 cin >> grupe[i].Namu[k];
-                int d = grupe[i].Namu[k];
-                int a[] = { d };
-                size_t size = sizeof(a) / sizeof(a[0]); //įvestų elementų skaičius
-                std::sort(a, a + size);
-                for (size_t o = 0; o < size; o++) {
-                    cout << a[o] << ' ';
-                }
-                grupe[i].Galutinis = grupe[i].Galutinis + grupe[i].Namu[k];
             }
+            size_t size = sizeof(grupe[i].Namu) / sizeof(grupe[i].Namu[0]); //įvestų elementų skaičius
+            std::sort(grupe[i].Namu, grupe[i].Namu + size);
+            for (size_t o = 0; o < size; o++) {
+                cout << grupe[i].Namu[o] << ' ';
+            }
+                        
         }
-        int a[] = { 1,5,4,2,3,6,7,8,2 };
-        size_t size = sizeof(a) / sizeof(a[0]); //įvestų elementų skaičius
-        std::sort(a, a + size); // surūšiuoti masyvą a nuo nulinio elemento iki n
-        for (size_t i = 0; i < size; i++) {
-            cout << a[i] << ' ';
+        for (int i = 0; i < n; i++) {
+            grupe[i].Galutinis = grupe[i].Galutinis + grupe[i].Namu;
         }
+//        int a[] = { 1,5,4,2,3,6,7,8,2 };
+//        size_t size = sizeof(a) / sizeof(a[0]); //įvestų elementų skaičius
+//        std::sort(a, a + size); // surūšiuoti masyvą a nuo nulinio elemento iki n
+//        for (size_t i = 0; i < size; i++) {
+//            cout << a[i] << ' ';
+//        }
 
         cout << std::left
         << std::setw(20) << "Vardas "
