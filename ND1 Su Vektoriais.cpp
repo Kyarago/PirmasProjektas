@@ -38,16 +38,26 @@ int main()
         cin >> stud.Pavarde;
         cout << "Iveskite " << i + 1 << "-ojo studento egzamina: ";
         cin >> stud.Egzaminas;
+        while (stud.Egzaminas < 1 || stud.Egzaminas > 10) {
+            cout << "Ivestas negalima pazimys, veskite is naujo: ";
+            cin >> stud.Egzaminas;
+        }
         
+        int c;
         int m = 0;
         cout << "Iveskite nd skaiciu: ";
         cin >> m;
-        if (m>0) cout << "Iveskite " << i + 1 << "-ojo studento nd pazymius: ";
+        if (m > 0 & m < 11) cout << "Iveskite " << i + 1 << "-ojo studento nd pazymius: ";
         for (int k = 0; k < m; k++) {
             cin >> stud.Namu[k];
+            while (stud.Namu[k] < 1 || stud.Namu[k] > 10) {
+                cout << "Ivestas negalima pazimys, veskite is naujo: ";
+                cin >> stud.Namu[k];
+            }
             stud.Galutinis = stud.Galutinis + stud.Namu[k];
+            c = sizeof(stud.Namu) / sizeof(stud.Namu[0]);
         }
-
+        cout << "C = " << c;
         std::sort(stud.Namu, stud.Namu + m);
         if (m % 2==1)
             stud.mediana = stud.Namu[m / 2];
@@ -55,7 +65,7 @@ int main()
             stud.mediana = (stud.Namu[m / 2 - 1] + stud.Namu[m / 2]) / 2;
 
         stud.Galutinis = stud.Galutinis / m;
-        stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
+        stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
         grupe.push_back(stud);
     }
     
