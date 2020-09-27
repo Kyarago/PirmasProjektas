@@ -19,7 +19,7 @@ struct duomenys {
     string Pavarde = "";
     int Namu[10];
     int Egzaminas;
-    int ivestis;
+    string ivestis = "";
     float Galutinis = 0;
     float mediana;
 };
@@ -69,13 +69,13 @@ int main()
         stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
         grupe.push_back(stud);
     }
-    cout << "Jei norite matyti viduriki - iveskite 1, jei mediana - iveskite 0   ";
+    cout << "Jei norite matyti viduriki - iveskite v, jei mediana - iveskite m   ";
     cin >> stud.ivestis;
-    while (stud.ivestis > 1 || stud.ivestis < 0) {
+    while (stud.ivestis != "v" && stud.ivestis != "m") {
         cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
         cin >> stud.ivestis;
     }
-    if (stud.ivestis == 1) {
+    if (stud.ivestis == "v") {
         cout << std::left
             << std::setw(20) << "Vardas "
             << std::setw(20) << "Pavarde"
@@ -88,7 +88,7 @@ int main()
                 << std::setw(20) << std::setprecision(2) << std::fixed << d.Galutinis << "\n";
         }
     }
-    else if (stud.ivestis == 0) {
+    else if (stud.ivestis == "m") {
         cout << std::left
             << std::setw(20) << "Vardas "
             << std::setw(20) << "Pavarde"
@@ -101,7 +101,6 @@ int main()
                 << std::setw(20) << std::setprecision(2) << std::fixed << d.mediana << "\n";
         }
     }
-
     cout << endl;
     grupe.clear();
 }
