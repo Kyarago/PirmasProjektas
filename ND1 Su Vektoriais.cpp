@@ -44,8 +44,9 @@ int main()
             cout << "Ivestas negalimas pazimys, veskite is naujo: ";
             cin >> stud.Egzaminas;
         }
+        cout << "Iveskite " << i + 1 << "-ojo studento nd pazymius, kai noresite sustoti, irasykite 0: \n";
         while (nd != 0) {
-            cout << "Iveskite " << i +1 << "-ojo studento nd pazymius, kai noresite sustoti, irasykite 0: \n";
+//            cout << "Iveskite " << i +1 << "-ojo studento nd pazymius, kai noresite sustoti, irasykite 0: \n";
             cin >> nd;
             if (nd > 0 && nd < 11) {
                 stud.Galutinis = stud.Galutinis + nd;
@@ -71,7 +72,7 @@ int main()
 //            c = sizeof(stud.Namu) / sizeof(stud.Namu[0]);
         c = stud.Namu.size();
 //        }
-        cout << "C = " << c << endl;
+        cout << "Namu darbu pazymiu skaicius: " << c << endl;
         std::sort(stud.Namu.begin(), stud.Namu.end());
         if (c % 2==1)
             stud.mediana = stud.Namu[c / 2];
