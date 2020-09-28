@@ -28,7 +28,7 @@ int main()
 {
     vector<duomenys> grupe;
     duomenys stud;
-    int nd = 0;
+    int nd = 1;
     int n = 0;
     cout << "Iveskite studentu skaiciu: ";
     cin >> n;
@@ -45,17 +45,18 @@ int main()
             cin >> stud.Egzaminas;
         }
         while (nd != 0) {
-            cout << "Iveskite studento nd pazymius, kai noresite sustoti, irasykite 0: ";
+            cout << "Iveskite " << i +1 << "-ojo studento nd pazymius, kai noresite sustoti, irasykite 0: \n";
             cin >> nd;
             if (nd > 0 && nd < 11) {
                 stud.Galutinis = stud.Galutinis + nd;
+                stud.Namu.push_back(nd);
             }
             else if (nd < 0 || nd > 10) {
-                cout << "Klaida, ivestas neteisingas pazimys ";
+                cout << "Klaida, ivestas neteisingas pazimys \n";
             }
         }
         
-//        int c;
+        int c;
 //        int m = 0;
 //        cout << "Iveskite nd skaiciu: ";
 //        cin >> m;
@@ -68,19 +69,20 @@ int main()
 //            }
 //            stud.Galutinis = stud.Galutinis + stud.Namu[k];
 //            c = sizeof(stud.Namu) / sizeof(stud.Namu[0]);
+        c = stud.Namu.size();
 //        }
-//        cout << "C = " << c;
-//        std::sort(stud.Namu, stud.Namu + m);
-//        if (m % 2==1)
-//            stud.mediana = stud.Namu[m / 2];
-//        else
-//            stud.mediana = (stud.Namu[m / 2 - 1] + stud.Namu[m / 2]) / 2;
+        cout << "C = " << c << endl;
+        std::sort(stud.Namu.begin(), stud.Namu.end());
+        if (c % 2==1)
+            stud.mediana = stud.Namu[c / 2];
+        else
+            stud.mediana = (stud.Namu[c / 2 - 1] + stud.Namu[c / 2]) / 2;
 
-//        stud.Galutinis = stud.Galutinis / m;
-//        stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
+        stud.Galutinis = stud.Galutinis / c;
+        stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
         grupe.push_back(stud);
     }
-    cout << "Jei norite matyti viduriki - iveskite v, jei mediana - iveskite m   ";
+    cout << "Jei norite matyti viduriki - iveskite v, jei mediana - iveskite m:   ";
     cin >> stud.ivestis;
     while (stud.ivestis != "v" && stud.ivestis != "m") {
         cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
