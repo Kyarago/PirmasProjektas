@@ -40,8 +40,6 @@ int main()
         cin.ignore(256, '\n');
         cin >> n;
     }
-//    vector<duomenys> grupe;
-//    duomenys stud;
     grupe.reserve(n);
     for (int i = 0; i < n; i++) {
         cout << "Iveskite " << i + 1 << "-aji varda: ";
@@ -100,16 +98,22 @@ int main()
         int c;
         c = stud.Namu.size();
         cout << "Namu darbu pazymiu skaicius: " << c << endl;
-        if (c % 2==1)
-            stud.mediana = stud.Namu[c / 2];
-        else
-            stud.mediana = (stud.Namu[c / 2 - 1] + stud.Namu[c / 2]) / 2;
-        
-        float bendras = 0;
-        bendras = accumulate(stud.Namu.begin(), stud.Namu.end(), 0);
-        cout << "Bendras: " << bendras << endl;
-        stud.Galutinis = bendras / c;
-        stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
+        if (c != 0) {
+            if (c % 2 == 1)
+                stud.mediana = stud.Namu[c / 2];
+            else
+                stud.mediana = (stud.Namu[c / 2 - 1] + stud.Namu[c / 2]) / 2;
+        }
+        if (c == 0) {
+            stud.Galutinis = stud.Egzaminas * 0.6;
+        }
+        else {
+            float bendras = 0;
+            bendras = accumulate(stud.Namu.begin(), stud.Namu.end(), 0);
+            cout << "Bendras: " << bendras << endl;
+            stud.Galutinis = bendras / c;
+            stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
+        }
         grupe.push_back(stud);
         stud.Namu.clear();
     }
