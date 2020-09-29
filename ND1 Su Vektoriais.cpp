@@ -28,10 +28,18 @@ int main()
 {
     vector<duomenys> grupe;
     duomenys stud;
-    int nd = 1;
+//    int nd = 1;
     int n = 0;
     cout << "Iveskite studentu skaiciu: ";
     cin >> n;
+    while (cin.fail()) {
+        cout << "klaida, iveskite skaiciu  ";
+        cin.clear();
+        cin.ignore(256, '\n');
+        cin >> n;
+    }
+//    vector<duomenys> grupe;
+//    duomenys stud;
     grupe.reserve(n);
     for (int i = 0; i < n; i++) {
         cout << "Iveskite " << i + 1 << "-aji varda: ";
@@ -44,20 +52,21 @@ int main()
             cout << "Ivestas negalimas pazimys, veskite is naujo: ";
             cin >> stud.Egzaminas;
         }
+        int nd = 1;
         cout << "Iveskite " << i + 1 << "-ojo studento nd pazymius, kai noresite sustoti, irasykite 0: \n";
         while (nd != 0) {
-//            cout << "Iveskite " << i +1 << "-ojo studento nd pazymius, kai noresite sustoti, irasykite 0: \n";
             cin >> nd;
             if (nd > 0 && nd < 11) {
+//                stud.Galutinis = stud.Galutinis + nd;
+                stud.Namu.emplace_back(nd);
                 stud.Galutinis = stud.Galutinis + nd;
-                stud.Namu.push_back(nd);
             }
             else if (nd < 0 || nd > 10) {
                 cout << "Klaida, ivestas neteisingas pazimys \n";
             }
         }
-        
-        int c;
+//        stud.Namu.push_back(nd);
+
 //        int m = 0;
 //        cout << "Iveskite nd skaiciu: ";
 //        cin >> m;
@@ -70,8 +79,9 @@ int main()
 //            }
 //            stud.Galutinis = stud.Galutinis + stud.Namu[k];
 //            c = sizeof(stud.Namu) / sizeof(stud.Namu[0]);
-        c = stud.Namu.size();
 //        }
+        int c;
+        c = stud.Namu.size();
         cout << "Namu darbu pazymiu skaicius: " << c << endl;
         std::sort(stud.Namu.begin(), stud.Namu.end());
         if (c % 2==1)
