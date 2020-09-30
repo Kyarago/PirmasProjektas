@@ -35,9 +35,9 @@ int main()
     cout << "Iveskite studentu skaiciu: ";
     cin >> n;
     while (cin.fail()) {
-        cout << "klaida, iveskite skaiciu  ";
+        cout << "klaida, iveskite skaiciu:  ";
         cin.clear();
-        cin.ignore(256, '\n');
+        cin.ignore(200, '\n');
         cin >> n;
     }
     grupe.reserve(n);
@@ -70,7 +70,7 @@ int main()
             while (cin.fail() || ex < 1 || ex > 10) {
                 cout << "Klaida, ivestas blogas pazimys, veskite is naujo: ";
                 cin.clear();
-                cin.ignore(256, '\n');
+                cin.ignore(200, '\n');
                 cin >> ex;
             }
             stud.Egzaminas = ex;
@@ -80,7 +80,7 @@ int main()
             while (cin.fail() || nd < 0 || nd > 10) {
                 cout << "Klaida, ivestas negalimas pazimys, veskite is naujo: ";
                 cin.clear();
-                cin.ignore(256, '\n');
+                cin.ignore(200, '\n');
                 cin >> nd;
             }
             while (nd != 0) {
@@ -89,7 +89,7 @@ int main()
                 while (cin.fail() || nd < 0 || nd > 10) {
                     cout << "Klaida, ivestas negalimas pazimys, veskite is naujo: ";
                     cin.clear();
-                    cin.ignore(256, '\n');
+                    cin.ignore(200, '\n');
                     cin >> nd;
                 }
             }
@@ -110,7 +110,7 @@ int main()
         else {
             float bendras = 0;
             bendras = accumulate(stud.Namu.begin(), stud.Namu.end(), 0);
-            cout << "Bendras: " << bendras << endl;
+            //cout << "Bendras: " << bendras << endl;
             stud.Galutinis = bendras / c;
             stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
         }
