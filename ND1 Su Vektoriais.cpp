@@ -133,7 +133,7 @@ int main()
     }
     else if (s == "T" || s == "t") {
         string pav = "";
-        cout << "Failo kuri norit nnuskaityti pavadinimas (pvz.: studentai.txt): ";
+        cout << "Failo kuri norit nnuskaityti pavadinimas (pvz.: kursiokai.txt): ";
         cin >> pav;
         std::ifstream file(pav);
         if (file.good()) {
