@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <random>
 #include <numeric>
+#include <fstream>
+#include <sstream>
 
 using std::string;
 using std::cout;
@@ -21,70 +23,72 @@ struct duomenys {
     string Pavarde = "";
     vector<int> Namu;
     int Egzaminas;
-    string p = "";
-    string ivestis = "";
     float Galutinis = 0;
     float mediana;
+};
+
+bool Tvarkymas(const duomenys& pirmas, const duomenys& antras) { 
+    return pirmas.Vardas < antras.Vardas; 
 };
 
 int main()
 {
     vector<duomenys> grupe;
     duomenys stud;
-    int n = 0;
-    cout << "Iveskite studentu skaiciu: ";
-    cin >> n;
-    while (cin.fail()) {
-        cout << "klaida, iveskite skaiciu:  ";
-        cin.clear();
-        cin.ignore(200, '\n');
-        cin >> n;
+    string s = "";
+    string p = "";
+    cout << "Ar duomenis norite vesti patys ar nuskaityti is failo (t / n)? : ";
+    cin >> s;
+    while (s != "t" && s != "n" && s != "N" && s != "T") {
+        cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
+        cin >> s;
     }
-    grupe.reserve(n);
-    for (int i = 0; i < n; i++) {
-        cout << "Iveskite " << i + 1 << "-aji varda: ";
-        cin >> stud.Vardas;
-        cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
-        cin >> stud.Pavarde;
-        cout << "Jei norite generuoti pazymius - iveskite g, jei vesite - v: ";
-        cin >> stud.p;
-        while (stud.p != "g" && stud.p != "v") {
-            cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
-            cin >> stud.p;
+    if (s == "n" || s == "N") {
+        int n = 0;
+        cout << "Iveskite studentu skaiciu: ";
+        cin >> n;
+        while (cin.fail()) {
+            cout << "klaida, iveskite skaiciu:  ";
+            cin.clear();
+            cin.ignore(200, '\n');
+            cin >> n;
         }
-        if (stud.p == "g") {
-            int kiek;
-            stud.Egzaminas = 1 + rand() % 10;
-            cout << "Sukurtas egzamino pazimys: " << stud.Egzaminas << endl;
-            cout << "Kiek pazymiu generuoti " << i + 1 << " studentui? : ";
-            cin >> kiek; for (int k = 0; k < kiek; k++) {
-                int nd = 1 + rand() % 10;
-                cout << nd << "   ";
-                stud.Namu.push_back(nd);
+        grupe.reserve(n);
+        for (int i = 0; i < n; i++) {
+            cout << "Iveskite " << i + 1 << "-aji varda: ";
+            cin >> stud.Vardas;
+            cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
+            cin >> stud.Pavarde;
+            cout << "Jei norite generuoti pazymius - iveskite g, jei vesite - v: ";
+            cin >> p;
+            while (p != "g" && p != "v") {
+                cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
+                cin >> p;
             }
-        }
-        else if (stud.p == "v") {
-            int ex;
-            cout << i + 1 << " -ojo studento egzamino pazimys: ";
-            cin >> ex;
-            while (cin.fail() || ex < 1 || ex > 10) {
-                cout << "Klaida, ivestas blogas pazimys, veskite is naujo: ";
-                cin.clear();
-                cin.ignore(200, '\n');
+            if (p == "g") {
+                int kiek;
+                stud.Egzaminas = 1 + rand() % 10;
+                cout << "Sukurtas egzamino pazimys: " << stud.Egzaminas << endl;
+                cout << "Kiek pazymiu generuoti " << i + 1 << " studentui? : ";
+                cin >> kiek; for (int k = 0; k < kiek; k++) {
+                    int nd = 1 + rand() % 10;
+                    cout << nd << "   ";
+                    stud.Namu.push_back(nd);
+                }
+            }
+            else if (p == "v") {
+                int ex;
+                cout << i + 1 << " -ojo studento egzamino pazimys: ";
                 cin >> ex;
-            }
-            stud.Egzaminas = ex;
-            cout << "Iveskite " << i + 1 << " -ojo studento nd pazymius, kai noresite sustoti - iveskite 0: \n";
-            int nd = 1;
-            cin >> nd;
-            while (cin.fail() || nd < 0 || nd > 10) {
-                cout << "Klaida, ivestas negalimas pazimys, veskite is naujo: ";
-                cin.clear();
-                cin.ignore(200, '\n');
-                cin >> nd;
-            }
-            while (nd != 0) {
-                stud.Namu.push_back(nd);
+                while (cin.fail() || ex < 1 || ex > 10) {
+                    cout << "Klaida, ivestas blogas pazimys, veskite is naujo: ";
+                    cin.clear();
+                    cin.ignore(200, '\n');
+                    cin >> ex;
+                }
+                stud.Egzaminas = ex;
+                cout << "Iveskite " << i + 1 << " -ojo studento nd pazymius, kai noresite sustoti - iveskite 0: \n";
+                int nd = 1;
                 cin >> nd;
                 while (cin.fail() || nd < 0 || nd > 10) {
                     cout << "Klaida, ivestas negalimas pazimys, veskite is naujo: ";
@@ -92,38 +96,234 @@ int main()
                     cin.ignore(200, '\n');
                     cin >> nd;
                 }
+                while (nd != 0) {
+                    stud.Namu.push_back(nd);
+                    cin >> nd;
+                    while (cin.fail() || nd < 0 || nd > 10) {
+                        cout << "Klaida, ivestas negalimas pazimys, veskite is naujo: ";
+                        cin.clear();
+                        cin.ignore(200, '\n');
+                        cin >> nd;
+                    }
+                }
             }
+            std::sort(stud.Namu.begin(), stud.Namu.end());
+            int c;
+            c = stud.Namu.size();
+            cout << "Namu darbu pazymiu skaicius: " << c << endl;
+            if (c != 0) {
+                if (c % 2 == 1)
+                    stud.mediana = stud.Namu[c / 2];
+                else
+                    stud.mediana = (stud.Namu[c / 2 - 1] + stud.Namu[c / 2]) / 2;
+            }
+            if (c == 0) {
+                stud.Galutinis = stud.Egzaminas * 0.6;
+            }
+            else {
+                float bendras = 0;
+                bendras = accumulate(stud.Namu.begin(), stud.Namu.end(), 0);
+                //cout << "Bendras: " << bendras << endl;
+                stud.Galutinis = bendras / c;
+                stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
+            }
+            grupe.push_back(stud);
+            stud.Namu.clear();
         }
-        std::sort(stud.Namu.begin(), stud.Namu.end());
-        int c;
-        c = stud.Namu.size();
-        cout << "Namu darbu pazymiu skaicius: " << c << endl;
-        if (c != 0) {
-            if (c % 2 == 1)
-                stud.mediana = stud.Namu[c / 2];
-            else
-                stud.mediana = (stud.Namu[c / 2 - 1] + stud.Namu[c / 2]) / 2;
+    }
+    else if (s == "T" || s == "t") {
+//        std::ifstream file("studentai10000.txt");
+//        if (!file.fail()) {
+//            duomenys f;
+//            string temp;
+//            std::getline(file, temp);
+//            while (!file.eof()) {                
+//                file >> f.Vardas >> f.Pavarde;
+//                int kiekis = 15;
+//                int nd;
+//                for (int i = 0; i < kiekis; i++) {
+//                    file >> nd;
+//                    f.Namu.push_back(nd);
+//               }
+//                file >> f.Egzaminas;
+//                grupe.push_back(f);
+//                cout << "Suveike!" << endl;
+//            }
+//        }
+//        else {
+//            cout << "Klaida, failo nuskaityti nepavyko" << endl;
+//        }
+//        file.close();
+
+        std::ifstream file("studentai10000.txt");
+        int nd;
+        int kiekis = 15;
+        int h;
+        h = 100;
+        file.unsetf(std::ios_base::skipws);
+        int b = std::count (std::istream_iterator<char>(file), std::istream_iterator<char>(), '\n');
+        std::cout << "Number of lines in text file: " << b << endl;
+        std::ifstream filee("studentai10000.txt");
+        filee.ignore(10000, '\n');
+        for (int j = 0; j < b; j++) {
+            filee >> stud.Vardas >> stud.Pavarde;
+            for (int i = 0; i < kiekis; i++) {
+                filee >> nd;
+                stud.Namu.push_back(nd);
+            }
+            filee >> stud.Egzaminas;
+            std::sort(stud.Namu.begin(), stud.Namu.end());
+            int c;
+            c = stud.Namu.size();
+            //            cout << "Namu darbu pazymiu skaicius: " << c << endl;
+            if (c != 0) {
+                if (c % 2 == 1)
+                    stud.mediana = stud.Namu[c / 2];
+                else
+                    stud.mediana = (stud.Namu[c / 2 - 1] + stud.Namu[c / 2]) / 2;
+            }
+            if (c == 0) {
+                stud.Galutinis = stud.Egzaminas * 0.6;
+            }
+            else {
+                float bendras = 0;
+                bendras = accumulate(stud.Namu.begin(), stud.Namu.end(), 0);
+                //cout << "Bendras: " << bendras << endl;
+                stud.Galutinis = bendras / c;
+                stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
+            }
+            grupe.push_back(stud);
+            stud.Namu.clear();
         }
-        if (c == 0) {
-            stud.Galutinis = stud.Egzaminas * 0.6;
-        }
-        else {
-            float bendras = 0;
-            bendras = accumulate(stud.Namu.begin(), stud.Namu.end(), 0);
+//        file >> stud.Vardas >> stud.Pavarde;
+//        cout << stud.Vardas;
+//        for (int i = 0; i < kiekis; i++) {
+//            file >> nd;
+//            stud.Namu.push_back(nd);
+//        }
+//        file >> stud.Egzaminas;
+//        std::sort(stud.Namu.begin(), stud.Namu.end());
+//        int c;
+//        c = stud.Namu.size();
+        //            cout << "Namu darbu pazymiu skaicius: " << c << endl;
+//        if (c != 0) {
+//            if (c % 2 == 1)
+//                stud.mediana = stud.Namu[c / 2];
+//            else
+//                stud.mediana = (stud.Namu[c / 2 - 1] + stud.Namu[c / 2]) / 2;
+//        }
+//        if (c == 0) {
+//            stud.Galutinis = stud.Egzaminas * 0.6;
+//        }
+//        else {
+//            float bendras = 0;
+//            bendras = accumulate(stud.Namu.begin(), stud.Namu.end(), 0);
             //cout << "Bendras: " << bendras << endl;
-            stud.Galutinis = bendras / c;
-            stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
-        }
-        grupe.push_back(stud);
-        stud.Namu.clear();
+//            stud.Galutinis = bendras / c;
+//            stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
+//        }            
+//            grupe.push_back(stud);
+//            stud.Namu.clear();
+       
+//        grupe.push_back(stud);
+//        stud.Namu.clear();
+        
     }
+//    int n = 0;
+//    cout << "Iveskite studentu skaiciu: ";
+//	cin >> n;
+//    while (cin.fail()) {
+//        cout << "klaida, iveskite skaiciu:  ";
+//        cin.clear();
+//        cin.ignore(200, '\n');
+//        cin >> n;
+//    }
+//    grupe.reserve(n);
+//    for (int i = 0; i < n; i++) {
+//        cout << "Iveskite " << i + 1 << "-aji varda: ";
+//        cin >> stud.Vardas;
+//        cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
+//        cin >> stud.Pavarde;
+//        cout << "Jei norite generuoti pazymius - iveskite g, jei vesite - v: ";
+//        cin >> p;
+//        while (p != "g" && p != "v") {
+//            cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
+//            cin >> p;
+//        }
+//        if (p == "g") {
+//            int kiek;
+//            stud.Egzaminas = 1 + rand() % 10;
+//            cout << "Sukurtas egzamino pazimys: " << stud.Egzaminas << endl;
+//            cout << "Kiek pazymiu generuoti " << i + 1 << " studentui? : ";
+//            cin >> kiek; for (int k = 0; k < kiek; k++) {
+//                int nd = 1 + rand() % 10;
+//                cout << nd << "   ";
+//                stud.Namu.push_back(nd);
+//            }
+//        }
+//        else if (p == "v") {
+//            int ex;
+//            cout << i + 1 << " -ojo studento egzamino pazimys: ";
+//            cin >> ex;
+//            while (cin.fail() || ex < 1 || ex > 10) {
+//                cout << "Klaida, ivestas blogas pazimys, veskite is naujo: ";
+//                cin.clear();
+//                cin.ignore(200, '\n');
+//                cin >> ex;
+//            }
+//            stud.Egzaminas = ex;
+//            cout << "Iveskite " << i + 1 << " -ojo studento nd pazymius, kai noresite sustoti - iveskite 0: \n";
+//            int nd = 1;
+//            cin >> nd;
+//            while (cin.fail() || nd < 0 || nd > 10) {
+//                cout << "Klaida, ivestas negalimas pazimys, veskite is naujo: ";
+//                cin.clear();
+//                cin.ignore(200, '\n');
+//                cin >> nd;
+//            }
+//            while (nd != 0) {
+//                stud.Namu.push_back(nd);
+//                cin >> nd;
+//                while (cin.fail() || nd < 0 || nd > 10) {
+//                    cout << "Klaida, ivestas negalimas pazimys, veskite is naujo: ";
+//                    cin.clear();
+//                    cin.ignore(200, '\n');
+//                    cin >> nd;
+//                }
+//            }
+//        }
+//        std::sort(stud.Namu.begin(), stud.Namu.end());
+//        int c;
+//        c = stud.Namu.size();
+//        cout << "Namu darbu pazymiu skaicius: " << c << endl;
+//        if (c != 0) {
+//            if (c % 2 == 1)
+//                stud.mediana = stud.Namu[c / 2];
+//            else
+//                stud.mediana = (stud.Namu[c / 2 - 1] + stud.Namu[c / 2]) / 2;
+//        }
+//        if (c == 0) {
+//            stud.Galutinis = stud.Egzaminas * 0.6;
+//        }
+//        else {
+//            float bendras = 0;
+//            bendras = accumulate(stud.Namu.begin(), stud.Namu.end(), 0);
+//            //cout << "Bendras: " << bendras << endl;
+//            stud.Galutinis = bendras / c;
+//            stud.Galutinis = stud.Galutinis * 0.4 + 0.6 * stud.Egzaminas;
+//        }
+//        grupe.push_back(stud);
+//        stud.Namu.clear();
+//    }
+    std::sort(grupe.begin(), grupe.end(), Tvarkymas);
+    string ivestis = "";
     cout << "Jei norite matyti viduriki - iveskite v, jei mediana - iveskite m:   ";
-    cin >> stud.ivestis;
-    while (stud.ivestis != "v" && stud.ivestis != "m") {
+    cin >> ivestis;
+    while (ivestis != "v" && ivestis != "m") {
         cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
-        cin >> stud.ivestis;
+        cin >> ivestis;
     }
-    if (stud.ivestis == "v") {
+    if (ivestis == "v") {
         cout << std::left
             << std::setw(20) << "Vardas "
             << std::setw(20) << "Pavarde"
@@ -136,7 +336,7 @@ int main()
                 << std::setw(20) << std::setprecision(2) << std::fixed << d.Galutinis << "\n";
         }
     }
-    else if (stud.ivestis == "m") {
+    else if (ivestis == "m") {
         cout << std::left
             << std::setw(20) << "Vardas "
             << std::setw(20) << "Pavarde"
