@@ -133,7 +133,7 @@ int main()
     }
     else if (s == "T" || s == "t") {
         string pav = "";
-        cout << "Failo kuri norit nnuskaityti pavadinimas (pvz.: studentai10000.txt): ";
+        cout << "Failo kuri norit nnuskaityti pavadinimas (pvz.: studentai.txt): ";
         cin >> pav;
         std::ifstream file(pav);
         if (file.good()) {
@@ -152,8 +152,8 @@ int main()
             h = 100;
             file.unsetf(std::ios_base::skipws);
             int b = std::count(std::istream_iterator<char>(file), std::istream_iterator<char>(), '\n');
-            std::cout << "Number of lines in text file: " << b << endl;
-            std::ifstream filee("studentai10000.txt");
+            std::cout << "Studentu skaicius faile: " << b << endl;
+            std::ifstream filee(pav);
             filee.ignore(10000, '\n');
             for (int j = 0; j < b; j++) {
                 filee >> stud.Vardas >> stud.Pavarde;
