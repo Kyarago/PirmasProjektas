@@ -29,3 +29,4 @@ struct duomenys {
 bool Tvarkymas(const duomenys& pirmas, const duomenys& antras);
 void ivedimas(vector<duomenys> &grupe);
 void isvedimas(vector<duomenys>& grupe);
+void generavimas(vector<duomenys>& grupe);

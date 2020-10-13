@@ -6,6 +6,7 @@
 int main()
 {
     vector<duomenys> grupe;
+    generavimas(grupe);
     ivedimas(grupe);
     std::sort(grupe.begin(), grupe.end(), Tvarkymas);
     isvedimas(grupe);
