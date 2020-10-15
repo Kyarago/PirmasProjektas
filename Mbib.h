@@ -24,9 +24,12 @@ struct duomenys {
     int Egzaminas;
     float Galutinis = 0;
     float mediana;
+    string kategorija;
 };
 
 bool Tvarkymas(const duomenys& pirmas, const duomenys& antras);
 void ivedimas(vector<duomenys> &grupe);
 void isvedimas(vector<duomenys>& grupe);
 void generavimas(vector<duomenys>& grupe);
+void skaidymas(vector<duomenys>& grupe);
+void spausd(vector<duomenys>& grupe);

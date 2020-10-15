@@ -165,6 +165,7 @@ void ivedimas(vector<duomenys> &grupe) {
 
             int h;
             h = 100;
+            string line;
             file.unsetf(std::ios_base::skipws);
             int b = std::count(std::istream_iterator<char>(file), std::istream_iterator<char>(), '\n');
             std::cout << "Studentu skaicius faile: " << b << endl;
@@ -270,11 +271,11 @@ void generavimas(vector<duomenys>& grupe) {
                 cin >> eil;
             }
         } while (cin.fail() == true);
-        string pav = "Stud" + std::to_string(eil) + ".txt";
+        grupe.reserve(eil);
+        string pav = "Studentai" + std::to_string(eil) + ".txt";
         cout << "Naujo failo pavadinimas: " << pav << endl;;
         std::ofstream out(pav);
-        out << "Vardas      " << "Pavarde      " << "nd1   " << "nd2   " << "nd3   " << "nd4   " << "nd5   " << "Egz" << endl;
-        out << endl;
+        out << "Vardas        " << "Pavarde        " << "nd1   " << "nd2   " << "nd3   " << "nd4   " << "nd5   " << "Egz   " << endl;
         for (int i = 0; i < eil; i++) {
             stud.Vardas = "Vardas" + std::to_string(i + 1);
             stud.Pavarde = "Pavarde" + std::to_string(i + 1);
@@ -284,10 +285,46 @@ void generavimas(vector<duomenys>& grupe) {
             }
             egz = 1 + rand() % 10;
             grupe.push_back(stud);
-            out << std::left << std::setw(12) << stud.Vardas << std::left << std::setw(13) << stud.Pavarde <<
+            out << std::left << std::setw(14) << stud.Vardas << std::left << std::setw(15) << stud.Pavarde <<
                 std::left << std::setw(6) << stud.Namu[0] << std::left << std::setw(6) << stud.Namu[1] << std::left << std::setw(6) << stud.Namu[2] <<
                 std::left << std::setw(6) << stud.Namu[3] << std::left << std::setw(6) << stud.Namu[4] << std::left << std::setw(6) << egz << '\n';
             stud.Namu.clear();
+        }
+    }
+}
+
+void skaidymas(vector<duomenys>& grupe) {
+    duomenys stud;
+    int q = grupe.size();
+    for (int i = 0; i < q; i++) {
+        if (grupe[i].Galutinis < 5) {
+            grupe[i].kategorija = "Vargseliai";
+        }
+        else grupe[i].kategorija = "Galvociai";
+    }
+}
+
+void spausd(vector<duomenys>& grupe) {
+    duomenys stud;
+    string ar = "";
+    cout << "Ar norite sukurti vargseliu ir galvociu failus? (t/n): ";
+    cin >> ar;
+    while (ar != "t" && ar != "n" && ar != "N" && ar != "T") {
+        cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
+        cin >> ar;
+    }
+    if (ar == "t" || ar == "T") {
+        std::ofstream vargsai("Vargseliai.txt");
+        std::ofstream kieti("Galvociai.txt");
+        vargsai << "Vardas        " << "Pavarde        " << "Egzaminas   " << "Galutinis" << endl;
+        kieti << "Vardas        " << "Pavarde        " << "Egzaminas   " << "Galutinis" << endl;
+        for (int i = 0; i < grupe.size(); i++) {
+            if (grupe[i].kategorija == "Vargseliai") {
+                vargsai << std::left << std::setw(14) << grupe[i].Vardas << std::left << std::setw(15) << grupe[i].Pavarde << std::left << std::setw(12) << grupe[i].Egzaminas << std::left << std::setw(9) << grupe[i].Galutinis << endl;
+            }
+            else if (grupe[i].kategorija == "Galvociai") {
+                kieti << std::left << std::setw(14) << grupe[i].Vardas << std::left << std::setw(15) << grupe[i].Pavarde << std::left << std::setw(12) << grupe[i].Egzaminas << std::left << std::setw(9) << grupe[i].Galutinis << endl;
+            }
         }
     }
 }

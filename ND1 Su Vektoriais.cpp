@@ -8,7 +8,9 @@ int main()
     vector<duomenys> grupe;
     generavimas(grupe);
     ivedimas(grupe);
+    skaidymas(grupe);
     std::sort(grupe.begin(), grupe.end(), Tvarkymas);
+    spausd(grupe);
     isvedimas(grupe);
     cout << endl;
     grupe.clear();
