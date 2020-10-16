@@ -7,6 +7,7 @@ int main()
 {
     vector<duomenys> grupe;
     string o = "";
+    int n;
     cout << "Ar norite atlikti programos veikimo laiko analize? (t / n)? : ";
     cin >> o;
     while (o != "t" && o != "n" && o != "N" && o != "T") {
@@ -14,11 +15,13 @@ int main()
         cin >> o;
     }
     if (o == "t" || o == "T") {
-        laikas1k(grupe);
-        laikas10k(grupe);
-        laikas100k(grupe);
-        laikas1m(grupe);
-        //laikas10m(grupe);
+        cout << "Kiek namu darbu pazymiu norite atspausdinti? : ";
+        cin >> n;
+        laikas(grupe, 1000, n);
+        laikas(grupe, 10000, n);
+        laikas(grupe, 100000, n);
+        //laikas(grupe, 1000000, n);
+        //laikas(grupe, 10000000, n);
     }
     else {
         generavimas(grupe);
