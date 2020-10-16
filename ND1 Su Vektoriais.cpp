@@ -6,12 +6,28 @@
 int main()
 {
     vector<duomenys> grupe;
-    generavimas(grupe);
-    ivedimas(grupe);
-    skaidymas(grupe);
-    std::sort(grupe.begin(), grupe.end(), Tvarkymas);
-    spausd(grupe);
-    isvedimas(grupe);
-    cout << endl;
-    grupe.clear();
+    string o = "";
+    cout << "Ar norite atlikti programos veikimo laiko analize? (t / n)? : ";
+    cin >> o;
+    while (o != "t" && o != "n" && o != "N" && o != "T") {
+        cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
+        cin >> o;
+    }
+    if (o == "t" || o == "T") {
+        laikas1k(grupe);
+        laikas10k(grupe);
+        laikas100k(grupe);
+        laikas1m(grupe);
+        //laikas10m(grupe);
+    }
+    else {
+        generavimas(grupe);
+        ivedimas(grupe);
+        skaidymas(grupe);
+        std::sort(grupe.begin(), grupe.end(), Tvarkymas);
+        spausd(grupe);
+        isvedimas(grupe);
+        cout << endl;
+        grupe.clear();
+    }
 }
