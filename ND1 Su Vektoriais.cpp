@@ -20,8 +20,8 @@ int main()
         laikas(grupe, 1000, n);
         laikas(grupe, 10000, n);
         laikas(grupe, 100000, n);
-        //laikas(grupe, 1000000, n);
-        //laikas(grupe, 10000000, n);
+        laikas(grupe, 1000000, n);
+        laikas(grupe, 10000000, n);
     }
     else {
         generavimas(grupe);

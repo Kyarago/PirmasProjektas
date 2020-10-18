@@ -345,7 +345,7 @@ void tgeneravimas(vector<duomenys>& grupe, int nd, int eil) {
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    grupe.reserve(eil + 10);
+    //grupe.reserve(eil + 10);
     std::ofstream out(pav);
     out << std::left << std::setw(15) << "Vardas" << std::setw(16) << "Pavarde";
     for (int i = 0; i < nd; i++) {
@@ -354,25 +354,25 @@ void tgeneravimas(vector<duomenys>& grupe, int nd, int eil) {
     out << std::setw(9) << "Egzaminas" << endl;
 
     for (int i = 0; i < eil; i++) {
-        stud.Vardas = "Vardas" + std::to_string(i + 1);
+        /*stud.Vardas = "Vardas" + std::to_string(i + 1);
         stud.Pavarde = "Pavarde" + std::to_string(i + 1);
         for (int j = 0; j < nd; j++) {
             int ndpaz = 1 + rand() % 10;
             stud.Namu.push_back(ndpaz);
         }
         egz = 1 + rand() % 10;
-        grupe.push_back(stud);
+        grupe.push_back(stud);*/
         out << std::left << std::setw(15) << stud.Vardas << std::setw(16) << stud.Pavarde;
         for (int k = 0; k < nd; k++) {
-            out << std::setw(6) << stud.Namu[k];
+            out << std::setw(6) << 1 + rand() % 10;
         }
-        out << std::setw(9) << egz << endl;
-        stud.Namu.clear();
+        out << std::setw(9) << 1 + rand() % 10 << endl;
+        //stud.Namu.clear();
     }
-    grupe.clear();
     out.close();
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << eil << " eiluciu su " << nd <<  " namu darbais failo sukurimo laikas: " << diff.count() << endl;
+    grupe.clear();
 }
 
 void skaidymas(vector<duomenys>& grupe) {
