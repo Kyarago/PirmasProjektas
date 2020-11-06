@@ -74,6 +74,8 @@ void lskaidymas(list<duomenys>& lgrupe, int eil) {
     diff = std::chrono::high_resolution_clock::now() - start;
     cout << eil << " eiluciu failo kietu ir vargsu failu sukurimo laikas: " << diff.count() << " s" << endl;
     vargsai.close();
+    kieti.close();
+    Vargseliai.clear(); Galvociai.clear();
 }
 
 void llaikas(list<duomenys>& lgrupe, int eil, int nd) {

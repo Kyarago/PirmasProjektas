@@ -412,6 +412,8 @@ void spausd(vector<duomenys>& grupe) {
                 kieti << std::left << std::setw(15) << grupe[i].Vardas << std::left << std::setw(16) << grupe[i].Pavarde << std::left << std::setw(12) << grupe[i].Egzaminas << std::left << std::setw(9) << grupe[i].Galutinis << endl;
             }
         }
+        vargsai.close();
+        kieti.close();
     }
 }
 
@@ -432,6 +434,8 @@ void tspausd(vector<duomenys>& grupe, int eil) {
     }
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << eil << " eiluciu failo kietu ir vargsu failu sukurimo laikas: " << diff.count() << endl;
+    vargsai.close();
+    kieti.close();
 }
 
 void tiknuskaitymui(vector<duomenys>& grupe, int eil, int nd) {
@@ -481,11 +485,44 @@ void tiknuskaitymui(vector<duomenys>& grupe, int eil, int nd) {
     file.close();
 }
 
+void vskaidymas(vector<duomenys>& lgrupe, int eil) {
+    auto start = std::chrono::high_resolution_clock::now();
+    duomenys lstud;
+    vector<duomenys> Vargseliai;
+    vector<duomenys> Galvociai;
+    int q = lgrupe.size();
+    for (auto& t : lgrupe) {
+        if (t.Galutinis < 5.0)
+            Vargseliai.push_back(t);
+        else Galvociai.push_back(t);
+    }
+    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << " s" << endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    std::ofstream vargsai("ListVargseliai" + std::to_string(eil) + ".txt");
+    vargsai << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
+    for (auto& t : Vargseliai) {
+        vargsai << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
+    }
+    std::ofstream kieti("ListGalvociai" + std::to_string(eil) + ".txt");
+    kieti << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
+    for (auto& t : Galvociai) {
+        kieti << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
+    }
+    diff = std::chrono::high_resolution_clock::now() - start;
+    cout << eil << " eiluciu failo kietu ir vargsu failu sukurimo laikas: " << diff.count() << " s" << endl;
+    vargsai.close();
+    kieti.close();
+    Vargseliai.clear(); Galvociai.clear();
+}
+
 void laikas(vector<duomenys>& grupe, int eil, int nd) {
     auto start = std::chrono::high_resolution_clock::now();
     tiknuskaitymui(grupe, eil, nd);
-    tskaidymas(grupe, eil);
-    tspausd(grupe, eil);
+    //tskaidymas(grupe, eil);
+    //tspausd(grupe, eil);
+    vskaidymas(grupe, eil);
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Visas failo su " << eil << " eiluciu programos (vector) vykdymo laikas: " << diff.count() << "s \n";
     cout << "-------------------------------------------------------------------------" << endl;
