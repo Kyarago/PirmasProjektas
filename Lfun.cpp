@@ -84,6 +84,6 @@ void llaikas(list<duomenys>& lgrupe, int eil, int nd) {
     lskaidymas(lgrupe, eil);
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Visas failo su " << eil << " eiluciu programos (list) vykdymo laikas: " << diff.count() << "s \n";
-    cout << "-------------------------------------------------------------------------" << endl;
+    cout << "------------------------------------------------------------------------- \n" << endl;
     lgrupe.clear();
 }

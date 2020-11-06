@@ -49,3 +49,4 @@ void lnuskaitymui(list<duomenys>& lgrupe, int eil, int nd);
 void lskaidymas(list<duomenys>& lgrupe, int eil);
 void llaikas(list<duomenys>& lgrupe, int eil, int nd);
 void kurt(vector<duomenys>& grupe);
+void vskaidymas(vector<duomenys>& lgrupe, int eil);

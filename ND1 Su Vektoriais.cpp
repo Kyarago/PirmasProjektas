@@ -36,10 +36,10 @@ int main()
         laikas(grupe, 1000, n);
         llaikas(lgrupe, 1000, n);
         laikas(grupe, 10000, n);
-        //laikas(grupe, 100000, n);
+        llaikas(lgrupe, 10000, n);
         //laikas(grupe, 1000000, n);
         //laikas(grupe, 10000000, n);
-        llaikas(lgrupe, 10000, n);
+        //llaikas(lgrupe, 10000000, n);
     }
     else {
         generavimas(grupe);

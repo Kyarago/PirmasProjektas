@@ -525,7 +525,7 @@ void laikas(vector<duomenys>& grupe, int eil, int nd) {
     vskaidymas(grupe, eil);
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << "Visas failo su " << eil << " eiluciu programos (vector) vykdymo laikas: " << diff.count() << "s \n";
-    cout << "-------------------------------------------------------------------------" << endl;
+    cout << "------------------------------------------------------------------------- \n" << endl;
     grupe.clear();
 }
 
