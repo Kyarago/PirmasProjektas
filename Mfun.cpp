@@ -500,12 +500,12 @@ void vskaidymas(vector<duomenys>& lgrupe, int eil) {
     cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << " s" << endl;
 
     //start = std::chrono::high_resolution_clock::now();
-    std::ofstream vargsai("ListVargseliai" + std::to_string(eil) + ".txt");
+    std::ofstream vargsai("VectorVargseliai" + std::to_string(eil) + ".txt");
     vargsai << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
     for (auto& t : Vargseliai) {
         vargsai << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
     }
-    std::ofstream kieti("ListGalvociai" + std::to_string(eil) + ".txt");
+    std::ofstream kieti("VectorGalvociai" + std::to_string(eil) + ".txt");
     kieti << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
     for (auto& t : Galvociai) {
         kieti << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
