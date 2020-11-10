@@ -39,7 +39,7 @@ void lnuskaitymui(list<duomenys>& lgrupe, int eil, int nd) {
             lstud.Namu.clear();
         }
     }
-    else cout << "Ivestas failas nebuvo rastas" << endl;
+    else cout << "Failas " << pav << " nebuvo rastas" << endl;
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start; // Skirtumas (s)
     std::cout << eil << " eiluciu failo nuskaitymas uztruko: " << diff.count() << " s\n";
@@ -60,7 +60,7 @@ void lskaidymas(list<duomenys>& lgrupe, int eil) {
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << " s" << endl;
 
-    start = std::chrono::high_resolution_clock::now();
+    //start = std::chrono::high_resolution_clock::now();
     std::ofstream vargsai("ListVargseliai" + std::to_string(eil) + ".txt");
     vargsai << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
     for (auto& t : Vargseliai) {
@@ -71,19 +71,20 @@ void lskaidymas(list<duomenys>& lgrupe, int eil) {
     for (auto& t : Galvociai) {
         kieti << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
     }
-    diff = std::chrono::high_resolution_clock::now() - start;
-    cout << eil << " eiluciu failo kietu ir vargsu failu sukurimo laikas: " << diff.count() << " s" << endl;
+    //diff = std::chrono::high_resolution_clock::now() - start;
+    //cout << eil << " eiluciu failo kietu ir vargsu failu sukurimo laikas: " << diff.count() << " s" << endl;
     vargsai.close();
     kieti.close();
     Vargseliai.clear(); Galvociai.clear();
 }
 
 void llaikas(list<duomenys>& lgrupe, int eil, int nd) {
-    auto start = std::chrono::high_resolution_clock::now();
+    cout << "Programa dirba su listais --------- :\n";
+    //auto start = std::chrono::high_resolution_clock::now();
     lnuskaitymui(lgrupe, eil, nd);
     lskaidymas(lgrupe, eil);
-    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << "Visas failo su " << eil << " eiluciu programos (list) vykdymo laikas: " << diff.count() << "s \n";
-    cout << "------------------------------------------------------------------------- \n" << endl;
+    //std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    //cout << "Visas failo su " << eil << " eiluciu programos (list) vykdymo laikas: " << diff.count() << "s \n";
+    //cout << "------------------------------------------------------------------------- \n" << endl;
     lgrupe.clear();
 }

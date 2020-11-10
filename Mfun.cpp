@@ -499,7 +499,7 @@ void vskaidymas(vector<duomenys>& lgrupe, int eil) {
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << " s" << endl;
 
-    start = std::chrono::high_resolution_clock::now();
+    //start = std::chrono::high_resolution_clock::now();
     std::ofstream vargsai("ListVargseliai" + std::to_string(eil) + ".txt");
     vargsai << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
     for (auto& t : Vargseliai) {
@@ -510,22 +510,23 @@ void vskaidymas(vector<duomenys>& lgrupe, int eil) {
     for (auto& t : Galvociai) {
         kieti << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
     }
-    diff = std::chrono::high_resolution_clock::now() - start;
-    cout << eil << " eiluciu failo kietu ir vargsu failu sukurimo laikas: " << diff.count() << " s" << endl;
+    //diff = std::chrono::high_resolution_clock::now() - start;
+    //cout << eil << " eiluciu failo kietu ir vargsu failu sukurimo laikas: " << diff.count() << " s" << endl;
     vargsai.close();
     kieti.close();
     Vargseliai.clear(); Galvociai.clear();
 }
 
 void laikas(vector<duomenys>& grupe, int eil, int nd) {
-    auto start = std::chrono::high_resolution_clock::now();
+    cout << "Programa dirba su vektoriais --------- :\n";
+    //auto start = std::chrono::high_resolution_clock::now();
     tiknuskaitymui(grupe, eil, nd);
     //tskaidymas(grupe, eil);
     //tspausd(grupe, eil);
     vskaidymas(grupe, eil);
-    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << "Visas failo su " << eil << " eiluciu programos (vector) vykdymo laikas: " << diff.count() << "s \n";
-    cout << "------------------------------------------------------------------------- \n" << endl;
+    //std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    //cout << "Visas failo su " << eil << " eiluciu programos (vector) vykdymo laikas: " << diff.count() << "s \n";
+    //cout << "------------------------------------------------------------------------- \n" << endl;
     grupe.clear();
 }
 
