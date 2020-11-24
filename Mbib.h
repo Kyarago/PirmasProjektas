@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
+#include <list>
 
 using std::string;
 using std::cout;
@@ -17,6 +18,7 @@ using std::cin;
 using std::endl;
 using std::vector;
 using std::sort;
+using std::list;
 
 struct duomenys {
     string Vardas = "";
@@ -26,9 +28,15 @@ struct duomenys {
     float Galutinis = 0;
     float mediana;
     string kategorija;
+    list<string> Vargseliai;
+    list<string> Galvociai;
+
+
 };
 
 bool Tvarkymas(const duomenys& pirmas, const duomenys& antras);
+void RusList(std::list<duomenys>& grupe);
+void RusVector(vector<duomenys>& grupe);
 void ivedimas(vector<duomenys> &grupe);
 void isvedimas(vector<duomenys>& grupe);
 void generavimas(vector<duomenys>& grupe); 
@@ -39,3 +47,10 @@ void spausd(vector<duomenys>& grupe);
 void tspausd(vector<duomenys>& grupe, int eil);
 void tiknuskaitymui(vector<duomenys>& grupe, int eil, int nd);
 void laikas(vector<duomenys>& grupe, int eil, int nd);
+void lnuskaitymui(list<duomenys>& lgrupe, int eil, int nd);
+void lskaidymas(list<duomenys>& lgrupe, int eil);
+void llaikas(list<duomenys>& lgrupe, int eil, int nd);
+void kurt(vector<duomenys>& grupe);
+void vskaidymas(vector<duomenys>& lgrupe, int eil);
+void lskaidymas2(list<duomenys>& lgrupe, int eil);
+void vskaidymas2(vector<duomenys>& grupe, int eil);
