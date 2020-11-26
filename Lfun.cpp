@@ -89,7 +89,7 @@ void lskaidymas2(list<duomenys>& lgrupe, int eil) {
         if (t.Galutinis < 5.0)
             it++;
     }
-    Vargseliai.splice(Vargseliai.begin(), lgrupe, it, lgrupe.end());
+    Vargseliai.splice(Vargseliai.begin(), lgrupe, lgrupe.begin(), it);
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << " s" << endl;
     std::ofstream vargsai("ListVargseliai" + std::to_string(eil) + ".txt");

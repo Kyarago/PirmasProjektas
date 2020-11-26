@@ -10,7 +10,7 @@ bool TvarkymasGal(const duomenys& pirmas, const duomenys& antras) {
 
 void RusList(list<duomenys>& grupe) {
     grupe.sort([](const duomenys& pirmas, const duomenys& antras) {
-        return (pirmas.Galutinis > antras.Galutinis);
+        return (pirmas.Galutinis < antras.Galutinis);
         });
 };
 
@@ -547,13 +547,12 @@ void vskaidymas2(vector<duomenys>& grupe, int eil) {
         n++; 
         m++;
     }
-    //std::move(grupe.end() - k, grupe.end(), std::back_inserter(Vargseliai));
     grupe.erase(grupe.begin(), grupe.begin() + n);
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << " s" << endl;
 
-    std::sort(Vargseliai.begin(), Vargseliai.end(), Tvarkymas);
-    std::sort(grupe.begin(), grupe.end(), Tvarkymas);
+    //std::sort(Vargseliai.begin(), Vargseliai.end(), Tvarkymas);
+    //std::sort(grupe.begin(), grupe.end(), Tvarkymas);
     std::ofstream vargsai("VectorVargseliai" + std::to_string(eil) + ".txt");
     vargsai << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
     for (auto& t : Vargseliai) {
