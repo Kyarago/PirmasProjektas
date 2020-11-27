@@ -58,7 +58,7 @@ void lskaidymas(list<duomenys>& lgrupe, int eil) {
         else Galvociai.push_back(t);
     }
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << " s" << endl;
+    cout << eil << " eiluciu failo suskaidymo i 2 kategorijas isvedant i 2 naujus listus laikas: " << diff.count() << " s" << endl;
 
     //start = std::chrono::high_resolution_clock::now();
     std::ofstream vargsai("ListVargseliai" + std::to_string(eil) + ".txt");
@@ -91,8 +91,8 @@ void lskaidymas2(list<duomenys>& lgrupe, int eil) {
     }
     Vargseliai.splice(Vargseliai.begin(), lgrupe, lgrupe.begin(), it);
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << " s" << endl;
-    std::ofstream vargsai("ListVargseliai" + std::to_string(eil) + ".txt");
+    cout << eil << " eiluciu failo suskaidymo i 2 kategorijas isvedant i 1 nauja lista laikas: " << diff.count() << " s" << endl;
+    std::ofstream vargsai("List2Vargseliai" + std::to_string(eil) + ".txt");
     vargsai << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
     for (auto& t : Vargseliai) {
         vargsai << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
@@ -110,6 +110,7 @@ void lskaidymas2(list<duomenys>& lgrupe, int eil) {
 void llaikas(list<duomenys>& lgrupe, int eil, int nd) {
     cout << "Programa dirba su listais --------- :\n";
     lnuskaitymui(lgrupe, eil, nd);
+    lskaidymas(lgrupe, eil);
     lskaidymas2(lgrupe, eil);
     lgrupe.clear();
 }
