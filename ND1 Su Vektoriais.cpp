@@ -1,11 +1,13 @@
 // ND1 Su Vektoriais.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// Objektinio programavimo Pirmo namu darbo versija 0.2
+// Objektinio programavimo Pirmo namu darbo versija 1.0
 
 #include "Mbib.h"
 
 int main()
 {
     vector<duomenys> grupe;
+    list<duomenys> lgrupe;
+    kurt(grupe);
     string o = "";
     int n;
     cout << "Ar norite atlikti programos veikimo laiko analize? (t / n)? : ";
@@ -15,13 +17,38 @@ int main()
         cin >> o;
     }
     if (o == "t" || o == "T") {
-        cout << "Kiek namu darbu pazymiu norite atspausdinti? : ";
+        cout << "Kiek namu darbu pazymiu failuose? : ";
         cin >> n;
+        do {
+            try {
+                if (cin.fail()) {
+                    throw std::runtime_error("Vesti reikia skaiciu!!!\n");
+                }
+            }
+            catch (const std::runtime_error& e) {
+                cout << e.what();
+                cin.clear();
+                cin.ignore(200, '\n');
+                cout << "Iveskite skaiciu: ";
+                cin >> n;
+            }
+        } while (cin.fail() == true);
         laikas(grupe, 1000, n);
+        llaikas(lgrupe, 1000, n);
+        cout << "------------------------------------------------------------------------- \n" << endl;
         laikas(grupe, 10000, n);
+        llaikas(lgrupe, 10000, n);
+        cout << "------------------------------------------------------------------------- \n" << endl;
         laikas(grupe, 100000, n);
+        llaikas(lgrupe, 100000, n);
+        cout << "------------------------------------------------------------------------- \n" << endl;
         laikas(grupe, 1000000, n);
-        laikas(grupe, 10000000, n);
+        llaikas(lgrupe, 1000000, n);
+        cout << "------------------------------------------------------------------------- \n" << endl;
+        /*laikas(grupe, 10000000, n);
+        llaikas(lgrupe, 10000000, n);
+        cout << "------------------------------------------------------------------------- \n" << endl;*/
+        grupe.clear(); lgrupe.clear();
     }
     else {
         generavimas(grupe);
@@ -33,4 +60,5 @@ int main()
         cout << endl;
         grupe.clear();
     }
+    system("pause");
 }

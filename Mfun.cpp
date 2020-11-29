@@ -4,6 +4,20 @@ bool Tvarkymas(const duomenys& pirmas, const duomenys& antras) {
         return pirmas.Vardas < antras.Vardas;
 };
 
+bool TvarkymasGal(const duomenys& pirmas, const duomenys& antras) {
+    return pirmas.Galutinis < antras.Galutinis;
+};
+
+void RusList(list<duomenys>& grupe) {
+    grupe.sort([](const duomenys& pirmas, const duomenys& antras) {
+        return (pirmas.Galutinis < antras.Galutinis);
+        });
+};
+
+void RusVector(vector<duomenys>& grupe) {
+    sort(grupe.begin(), grupe.end(), TvarkymasGal);
+};
+
 void ivedimas(vector<duomenys> &grupe) {
     duomenys stud;
     string p = "";
@@ -345,7 +359,6 @@ void tgeneravimas(vector<duomenys>& grupe, int nd, int eil) {
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    //grupe.reserve(eil + 10);
     std::ofstream out(pav);
     out << std::left << std::setw(15) << "Vardas" << std::setw(16) << "Pavarde";
     for (int i = 0; i < nd; i++) {
@@ -354,20 +367,11 @@ void tgeneravimas(vector<duomenys>& grupe, int nd, int eil) {
     out << std::setw(9) << "Egzaminas" << endl;
 
     for (int i = 0; i < eil; i++) {
-        /*stud.Vardas = "Vardas" + std::to_string(i + 1);
-        stud.Pavarde = "Pavarde" + std::to_string(i + 1);
-        for (int j = 0; j < nd; j++) {
-            int ndpaz = 1 + rand() % 10;
-            stud.Namu.push_back(ndpaz);
-        }
-        egz = 1 + rand() % 10;
-        grupe.push_back(stud);*/
-        out << std::left << std::setw(15) << stud.Vardas << std::setw(16) << stud.Pavarde;
+        out << std::left << std::setw(15) << "Vardas" + std::to_string(i+1) << std::setw(16) << "Pavarde" + std::to_string(i+1);
         for (int k = 0; k < nd; k++) {
             out << std::setw(6) << 1 + rand() % 10;
         }
         out << std::setw(9) << 1 + rand() % 10 << endl;
-        //stud.Namu.clear();
     }
     out.close();
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
@@ -397,7 +401,7 @@ void tskaidymas(vector<duomenys>& grupe, int eil) {
         else grupe[i].kategorija = "Galvociai";
     }
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << endl;
+    cout << eil << " eiluciu failo suskaidymo i 2 kategorijas laikas: " << diff.count() << " s" << endl;
 }
 
 void spausd(vector<duomenys>& grupe) {
@@ -422,14 +426,16 @@ void spausd(vector<duomenys>& grupe) {
                 kieti << std::left << std::setw(15) << grupe[i].Vardas << std::left << std::setw(16) << grupe[i].Pavarde << std::left << std::setw(12) << grupe[i].Egzaminas << std::left << std::setw(9) << grupe[i].Galutinis << endl;
             }
         }
+        vargsai.close();
+        kieti.close();
     }
 }
 
 void tspausd(vector<duomenys>& grupe, int eil) {
     auto start = std::chrono::high_resolution_clock::now();
     duomenys stud;
-    std::ofstream vargsai("Vargseliai.txt");
-    std::ofstream kieti("Galvociai.txt");
+    std::ofstream vargsai("Vargseliai" + std::to_string(eil) + ".txt");
+    std::ofstream kieti("Galvociai" + std::to_string(eil) + ".txt");
     vargsai << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
     kieti << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
     for (int i = 0; i < grupe.size(); i++) {
@@ -442,6 +448,8 @@ void tspausd(vector<duomenys>& grupe, int eil) {
     }
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
     cout << eil << " eiluciu failo kietu ir vargsu failu sukurimo laikas: " << diff.count() << endl;
+    vargsai.close();
+    kieti.close();
 }
 
 void tiknuskaitymui(vector<duomenys>& grupe, int eil, int nd) {
@@ -491,14 +499,99 @@ void tiknuskaitymui(vector<duomenys>& grupe, int eil, int nd) {
     file.close();
 }
 
-void laikas(vector<duomenys>& grupe, int eil, int nd) {
+void vskaidymas(vector<duomenys>& grupe, int eil) {
     auto start = std::chrono::high_resolution_clock::now();
-    tgeneravimas(grupe, nd, eil);
-    tiknuskaitymui(grupe, eil, nd);
-    tskaidymas(grupe, eil);
-    tspausd(grupe, eil);
+    duomenys stud;
+    vector<duomenys> Vargseliai;
+    vector<duomenys> Galvociai;
+    int q = grupe.size();
+    for (auto& t : grupe) {
+        if (t.Galutinis < 5.0)
+            Vargseliai.push_back(t);
+        else Galvociai.push_back(t);
+    }
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << "Visas failo su " << eil << " programos vykdymo laikas: " << diff.count() << "s \n";
-    cout << "-------------------------------------------------------------------------" << endl;
+    cout << eil << " eiluciu failo suskaidymo i 2 kategorijas isvedant i 2 naujus vektorius laikas: " << diff.count() << " s" << endl;
+
+    //start = std::chrono::high_resolution_clock::now();
+    std::ofstream vargsai("VectorVargseliai" + std::to_string(eil) + ".txt");
+    vargsai << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
+    for (auto& t : Vargseliai) {
+        vargsai << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
+    }
+    std::ofstream kieti("VectorGalvociai" + std::to_string(eil) + ".txt");
+    kieti << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
+    for (auto& t : Galvociai) {
+        kieti << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
+    }
+    //diff = std::chrono::high_resolution_clock::now() - start;
+    //cout << eil << " eiluciu failo kietu ir vargsu failu sukurimo laikas: " << diff.count() << " s" << endl;
+    vargsai.close();
+    kieti.close();
+    Vargseliai.clear(); Galvociai.clear();
+}
+
+void vskaidymas2(vector<duomenys>& grupe, int eil) {
+    RusVector(grupe);
+    auto start = std::chrono::high_resolution_clock::now();
+    duomenys stud;
+    int q = grupe.size();
+    int n = 0;
+    int m = 0;
+    vector<duomenys> Vargseliai;
+    for (auto& t : grupe) {
+        if (t.Galutinis < 5.0)
+            Vargseliai.push_back(t);
+    }
+    while (grupe[m].Galutinis < 5.0) {
+        n++; 
+        m++;
+    }
+    grupe.erase(grupe.begin(), grupe.begin() + n);
+    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    cout << eil << " eiluciu failo suskaidymo i 2 kategorijas isvedant 1 nauja vektoriu laikas: " << diff.count() << " s" << endl;
+
+    //std::sort(Vargseliai.begin(), Vargseliai.end(), Tvarkymas);
+    //std::sort(grupe.begin(), grupe.end(), Tvarkymas);
+    std::ofstream vargsai("Vector2Vargseliai" + std::to_string(eil) + ".txt");
+    vargsai << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
+    for (auto& t : Vargseliai) {
+        vargsai << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
+    }
+    std::ofstream kieti("VectorGalvociai" + std::to_string(eil) + ".txt");
+    kieti << "Vardas         " << "Pavarde         " << "Egzaminas   " << "Galutinis" << endl;
+    for (auto& t : grupe) {
+        kieti << std::left << std::setw(15) << t.Vardas << std::setw(16) << t.Pavarde << std::setw(12) << t.Egzaminas << std::setw(9) << t.Galutinis << endl;
+    }
+    vargsai.close();
+    kieti.close();
+    Vargseliai.clear(); 
+}
+
+void laikas(vector<duomenys>& grupe, int eil, int nd) {
+    cout << "Programa dirba su vektoriais --------- :\n";
+    tiknuskaitymui(grupe, eil, nd);
+    vskaidymas(grupe, eil);
+    vskaidymas2(grupe, eil);
     grupe.clear();
+}
+
+void kurt(vector<duomenys>& grupe) {
+    string ar = "";
+    int m;
+    cout << "Ar norite sukurti laiko analizei reikalingus tekstinius failus? (t / n)? : ";
+    cin >> ar;
+    while (ar != "t" && ar != "n" && ar != "N" && ar != "T") {
+        cout << "Ivestas negalimas pasirinkimas, veskite is naujo: ";
+        cin >> ar;
+    }
+    if (ar == "t" || ar == "T") {
+        cout << "Kiek namu darbu pazymiu norite sukurti? : ";
+        cin >> m;
+        tgeneravimas(grupe, m, 1000);
+        tgeneravimas(grupe, m, 10000);
+        tgeneravimas(grupe, m, 100000);
+        tgeneravimas(grupe, m, 1000000);
+        tgeneravimas(grupe, m, 10000000);
+    }
 }
