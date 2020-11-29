@@ -60,4 +60,5 @@ int main()
         cout << endl;
         grupe.clear();
     }
+    system("pause");
 }
