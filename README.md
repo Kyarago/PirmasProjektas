@@ -1,2 +1,2 @@
-# PirmasProjektas
-Objektiniam Programavimui
+# Objektinis programavimas
+Pirmo namų darbo užduotis
