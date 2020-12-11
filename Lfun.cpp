@@ -1,7 +1,7 @@
 #include "Mbib.h"
 
 void lnuskaitymui(list<duomenys>& lgrupe, int eil, int nd) {
-	duomenys lstud;
+    duomenys lstud;
     string pav = "";
     auto start = std::chrono::high_resolution_clock::now();
     pav = "Studentai" + std::to_string(eil) + ".txt";
@@ -52,7 +52,7 @@ void lskaidymas(list<duomenys>& lgrupe, int eil) {
     list<duomenys> Vargseliai;
     list<duomenys> Galvociai;
     int q = lgrupe.size();
-    for (auto& t: lgrupe) {
+    for (auto& t : lgrupe) {
         if (t.Galutinis < 5.0)
             Vargseliai.push_back(t);
         else Galvociai.push_back(t);
@@ -80,11 +80,11 @@ void lskaidymas(list<duomenys>& lgrupe, int eil) {
 
 void llaikas(list<duomenys>& lgrupe, int eil, int nd) {
     cout << "Programa dirba su listais --------- :\n";
-    //auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
     lnuskaitymui(lgrupe, eil, nd);
     lskaidymas(lgrupe, eil);
-    //std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    //cout << "Visas failo su " << eil << " eiluciu programos (list) vykdymo laikas: " << diff.count() << "s \n";
-    //cout << "------------------------------------------------------------------------- \n" << endl;
+    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    cout << "Visas failo su " << eil << " eiluciu programos (list) vykdymo laikas: " << diff.count() << "s \n";
+    cout << "------------------------------------------------------------------------- \n" << endl;
     lgrupe.clear();
 }

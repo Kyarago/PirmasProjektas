@@ -1,10 +1,10 @@
 #include "Mbib.h"
 
 bool Tvarkymas(const duomenys& pirmas, const duomenys& antras) {
-        return pirmas.Vardas < antras.Vardas;
+    return pirmas.Vardas < antras.Vardas;
 };
 
-void ivedimas(vector<duomenys> &grupe) {
+void ivedimas(vector<duomenys>& grupe) {
     duomenys stud;
     string p = "";
     string s = "";
@@ -246,7 +246,7 @@ void isvedimas(vector<duomenys>& grupe) {
     }
 }
 
-void generavimas(vector<duomenys> &grupe) {
+void generavimas(vector<duomenys>& grupe) {
     int nd;
     int eil;
     duomenys stud;
@@ -297,7 +297,7 @@ void generavimas(vector<duomenys> &grupe) {
         std::ofstream out(pav);
         out << std::left << std::setw(15) << "Vardas" << std::setw(16) << "Pavarde";
         for (int i = 0; i < nd; i++) {
-            out << std::setw(6) << "nd" + std::to_string(i+1);
+            out << std::setw(6) << "nd" + std::to_string(i + 1);
         }
         out << std::setw(9) << "Egzaminas" << endl;
 
@@ -348,12 +348,12 @@ void tgeneravimas(vector<duomenys>& grupe, int nd, int eil) {
     std::ofstream out(pav);
     out << std::left << std::setw(15) << "Vardas" << std::setw(16) << "Pavarde";
     for (int i = 0; i < nd; i++) {
-        out << std::setw(6) << "nd" + std::to_string(i+1);
+        out << std::setw(6) << "nd" + std::to_string(i + 1);
     }
     out << std::setw(9) << "Egzaminas" << endl;
 
     for (int i = 0; i < eil; i++) {
-        out << std::left << std::setw(15) << "Vardas" + std::to_string(i+1) << std::setw(16) << "Pavarde" + std::to_string(i+1);
+        out << std::left << std::setw(15) << "Vardas" + std::to_string(i + 1) << std::setw(16) << "Pavarde" + std::to_string(i + 1);
         for (int k = 0; k < nd; k++) {
             out << std::setw(6) << 1 + rand() % 10;
         }
@@ -361,19 +361,19 @@ void tgeneravimas(vector<duomenys>& grupe, int nd, int eil) {
     }
     out.close();
     std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    cout << eil << " eiluciu su " << nd <<  " namu darbais failo sukurimo laikas: " << diff.count() << endl;
+    cout << eil << " eiluciu su " << nd << " namu darbais failo sukurimo laikas: " << diff.count() << endl;
     grupe.clear();
 }
 
 void skaidymas(vector<duomenys>& grupe) {
-        duomenys stud;
-        int q = grupe.size();
-        for (int i = 0; i < q; i++) {
-            if (grupe[i].Galutinis < 5) {
-                grupe[i].kategorija = "Vargseliai";
-            }
-            else grupe[i].kategorija = "Galvociai";
+    duomenys stud;
+    int q = grupe.size();
+    for (int i = 0; i < q; i++) {
+        if (grupe[i].Galutinis < 5) {
+            grupe[i].kategorija = "Vargseliai";
         }
+        else grupe[i].kategorija = "Galvociai";
+    }
 }
 
 void tskaidymas(vector<duomenys>& grupe, int eil) {
@@ -519,14 +519,14 @@ void vskaidymas(vector<duomenys>& lgrupe, int eil) {
 
 void laikas(vector<duomenys>& grupe, int eil, int nd) {
     cout << "Programa dirba su vektoriais --------- :\n";
-    //auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
     tiknuskaitymui(grupe, eil, nd);
     //tskaidymas(grupe, eil);
     //tspausd(grupe, eil);
     vskaidymas(grupe, eil);
-    //std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-    //cout << "Visas failo su " << eil << " eiluciu programos (vector) vykdymo laikas: " << diff.count() << "s \n";
-    //cout << "------------------------------------------------------------------------- \n" << endl;
+    std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+    cout << "Visas failo su " << eil << " eiluciu programos (vector) vykdymo laikas: " << diff.count() << "s \n";
+    cout << "------------------------------------------------------------------------- \n" << endl;
     grupe.clear();
 }
 
